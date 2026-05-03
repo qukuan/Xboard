@@ -1,0 +1,11 @@
+{
+    "name": "EpayPro",
+    "code": "epay_pro",
+    "type": "payment",
+    "version": "1.0.0",
+    "description": "基于易支付Pro版(EpayPro)最新API规范重构的支付插件",
+    "author": "柠檬互联",
+    "require": {
+        "xboard": ">=1.0.0"
+    }
+}

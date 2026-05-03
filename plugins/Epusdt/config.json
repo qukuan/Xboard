@@ -1,0 +1,11 @@
+{
+    "name": "Epusdt",
+    "code": "epusdt",
+    "type": "payment",
+    "version": "1.0.3",
+    "description": "对接 Epusdt 加密货币收款网关。",
+    "author": "Xboard",
+    "require": {
+        "xboard": ">=1.0.0"
+    }
+}

@@ -49,6 +49,7 @@ class PaymentService
         }
 
         $paymentMethods = $this->getAvailablePaymentMethods();
+        // 尝试从已启用的插件中匹配支付实例
         if (isset($paymentMethods[$this->method])) {
             $pluginCode = $paymentMethods[$this->method]['plugin_code'];
             $paymentPlugins = $this->pluginManager->getEnabledPaymentPlugins();
@@ -61,8 +62,16 @@ class PaymentService
             }
         }
 
-        $this->payment = new $this->class($this->config);
+        // 如果上述循环未找到实例，且 $this->class 为空，则抛出异常
+        if (!$this->payment) {
+            if ($this->class && class_exists($this->class)) {
+                $this->payment = new $this->class($this->config);
+            } else {
+                throw new ApiException("支付网关 [{$this->method}] 初始化失败：插件未启用或类定义不存在。");
+            }
+        }
     }
+
 
     public function notify($params)
     {

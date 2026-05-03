@@ -24,7 +24,8 @@ class TelegramController extends Controller
 
     public function webhook(Request $request): void
     {
-        $expectedToken = md5(admin_setting('telegram_bot_token'));
+        // 将其强制转换为字符串，防止 admin_setting 返回 null 时触发 PHP 8.1+ 的 md5() 弃用警告
+        $expectedToken = md5((string) admin_setting('telegram_bot_token'));
         if ($request->input('access_token') !== $expectedToken) {
             throw new ApiException('access_token is error', 401);
         }
