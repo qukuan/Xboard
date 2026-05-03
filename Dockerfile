@@ -2,12 +2,12 @@ FROM phpswoole/swoole:php8.2
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
-# Debian/Ubuntu 的包管理，安装 Caddy 官方源，并添加 PostgreSQL 客户端及扩展支持
+# Debian / Ubuntu环境工具
 RUN apt-get update && apt-get install -y curl apt-transport-https debian-keyring debian-archive-keyring && \
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg && \
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list && \
     apt-get update && \
-    apt-get install -y shadow sqlite3 postgresql-client git patch supervisor redis-tools caddy && \
+    apt-get install -y sqlite3 postgresql-client git patch supervisor redis-tools caddy && \
     rm -rf /var/lib/apt/lists/* && \
     CFLAGS="-O0" install-php-extensions pcntl && \
     CFLAGS="-O0 -g0" install-php-extensions bcmath && \
@@ -20,7 +20,7 @@ WORKDIR /www
 
 COPY .docker /
 
-# 将原Xboard仓库地址指向自己的 GitHub仓库
+# 将仓库地址指向你自己的 GitHub
 ARG CACHEBUST=1
 ARG REPO_URL=https://github.com/qukuan/xboard
 ARG BRANCH_NAME=master
