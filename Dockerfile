@@ -20,7 +20,7 @@ WORKDIR /www
 
 COPY .docker /
 
-# 将仓库地址指向你自己的 GitHub
+# GitHub仓库地址
 ARG CACHEBUST=1
 ARG REPO_URL=https://github.com/qukuan/xboard
 ARG BRANCH_NAME=master

@@ -1,38 +1,34 @@
 services:
   xboard:
-    # 这里填写 Docker Hub 或阿里云镜像仓库的镜像名
-    image: your-dockerhub-username/xboard:latest 
-    container_name: xboard
+    image: qukuan/xboard:0.0.1 # 镜像版本
+    container_name: xboard # 本地创建容器名称
     restart: always
     networks:
-      - 1panel-network
+      - 1panel-network # 1panel容器内部网络
     ports:
-      - "7001:7001"
+      - "127.0.0.1:9000:7001" # 宿主机监听端口号
     environment:
-      # 切换为 PostgreSQL 支持
-      - DB_CONNECTION=pgsql
-      # 1Panel PostgreSQL 容器名称（默认为 postgresql，请核对）
-      - DB_HOST=postgresql 
-      - DB_PORT=5432
-      - DB_DATABASE=xboard
-      - DB_USERNAME=xboard
-      - DB_PASSWORD=填入你的1Panel_Postgres密码
-      # 1Panel Redis 容器名称
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_PASSWORD=填入你的1Panel_Redis密码
+      - docker=true
+      - RESOURCE_PROFILE=balanced
       - ENABLE_CADDY=true
       - ENABLE_WEB=true
       - ENABLE_HORIZON=true
       - ENABLE_WS_SERVER=true
+      - ENABLE_REDIS=false # 关闭镜像内部Redis
+      # Redis和PostgreSQL内部容器名称 端口号
+      - DB_HOST=填你PostgreSQL内部容器名称
+      - DB_PORT=5432
+      - REDIS_HOST=填你Redis内部容器名称
+      - REDIS_PORT=6379
     volumes:
-      - ./.docker/.data:/data
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
+      - ./.env:/www/.env
+      - ./plugins:/www/plugins
+      - ./.docker/.data/:/www/.docker/.data
+      - ./storage/logs:/www/storage/logs
 
 networks:
   1panel-network:
     external: true
+  default:
+    driver: bridge
+

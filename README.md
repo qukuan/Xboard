@@ -1,106 +1,13 @@
-# Xboard
+# Xboard 
+- 修改自Xboard源项目地址：https://github.com/cedar2025/Xboard
+- 这里是二次修改版本，去掉了对MySQL的支持，仅PostgreSQL（推荐）/sqlite
+- 完美适用1Panel面板docker容器部署（面板中自行安装好Redis、PostgreSQL、
+OpenResty）因为1Panel就是可视化的容器面板，镜像没打包Redis和PostgreSQL主要是我个人习惯用1Panel本地安装，不影响其它在跑的项目
+- 同理支持aapanel宝塔面板+docker部署，大差不差一样的部署方式
 
-<div align="center">
 
-[![Telegram](https://img.shields.io/badge/Telegram-Channel-blue)](https://t.me/XboardOfficial)
-![PHP](https://img.shields.io/badge/PHP-8.2+-green.svg)
-![MySQL](https://img.shields.io/badge/MySQL-5.7+-blue.svg)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
-</div>
-
-## 📖 Introduction
-
-Xboard is a modern panel system built on Laravel 11, focusing on providing a clean and efficient user experience.
-
-## ✨ Features
-
-- 🚀 Built with Laravel 12 + Octane for significant performance gains
-- 🎨 Redesigned admin interface (React + Shadcn UI)
-- 📱 Modern user frontend (Vue3 + TypeScript)
-- 🐳 Ready-to-use Docker deployment solution
-- 🎯 Optimized system architecture for better maintainability
-
-## 🚀 Quick Start
-
-```bash
-git clone -b compose --depth 1 https://github.com/cedar2025/Xboard && \
-cd Xboard && \
-docker compose run -it --rm \
-    -e ENABLE_SQLITE=true \
-    -e ENABLE_REDIS=true \
-    -e ADMIN_ACCOUNT=admin@demo.com \
-    xboard php artisan xboard:install && \
-docker compose up -d
-```
-
-> After installation, visit: http://SERVER_IP:7001  
-> ⚠️ Make sure to save the admin credentials shown during installation
-
-## 📖 Documentation
-
-### 🔄 Upgrade Notice
-> 🚨 **Important:** This version involves significant changes. Please strictly follow the upgrade documentation and backup your database before upgrading. Note that upgrading and migration are different processes, do not confuse them.
-
-### Development Guides
-- [Plugin Development Guide](./docs/en/development/plugin-development-guide.md) - Complete guide for developing XBoard plugins
-
-### Deployment Guides
-- [Deploy with 1Panel](./docs/en/installation/1panel.md)
-- [Deploy with Docker Compose](./docs/en/installation/docker-compose.md)
-- [Deploy with aaPanel](./docs/en/installation/aapanel.md)
-- [Deploy with aaPanel + Docker](./docs/en/installation/aapanel-docker.md) (Recommended)
-
-### Migration Guides
-- [Migrate from v2board dev](./docs/en/migration/v2board-dev.md)
-- [Migrate from v2board 1.7.4](./docs/en/migration/v2board-1.7.4.md)
-- [Migrate from v2board 1.7.3](./docs/en/migration/v2board-1.7.3.md)
-
-## 🛠️ Tech Stack
-
-- Backend: Laravel 11 + Octane
-- Admin Panel: React + Shadcn UI + TailwindCSS
-- User Frontend: Vue3 + TypeScript + NaiveUI
-- Deployment: Docker + Docker Compose
-- Caching: Redis + Octane Cache
-
-## 📷 Preview
-![Admin Preview](./docs/images/admin.png)
-
-![User Preview](./docs/images/user.png)
-
-## ⚠️ Disclaimer
-
-This project is for learning and communication purposes only. Users are responsible for any consequences of using this project.
-
-## ❤️ Support The Project
-
-If this project has helped you, donations are appreciated. They help support ongoing maintenance and would make me very happy.
-
-TRC20: `TLypStEWsVrj6Wz9mCxbXffqgt5yz3Y4XB`
-
-## 🌟 Maintenance Notice
-
-This project is currently under light maintenance. We will:
-- Fix critical bugs and security issues
-- Review and merge important pull requests
-- Provide necessary updates for compatibility
-
-However, new feature development may be limited.
-
-## 🔔 Important Notes
-
-1. Restart required after modifying admin path:
-```bash
-docker compose restart
-```
-
-2. For aaPanel installations, restart the Octane daemon process
-
-## 🤝 Contributing
-
-Issues and Pull Requests are welcome to help improve the project.
-
-## 📈 Star History
-
-[![Stargazers over time](https://starchart.cc/cedar2025/Xboard.svg)](https://starchart.cc/cedar2025/Xboard)
+# 更新
+- 几个数据库表字段对postgresql的适配修复
+- 新增易支付Pro支付方式插件（易支付最新Pro版本v1接口）
+- 新增Epusdt（0.0.3仅usdt支付方式版本）插件
+- 等......没什么大改动，主要是对postgresql数据库的支持（原版使用postgresql会有字段类型不兼容的错误问题）
