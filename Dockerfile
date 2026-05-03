@@ -1,4 +1,4 @@
-FROM phpswoole/swoole:php8.2-cli
+FROM phpswoole/swoole:php8.2
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
